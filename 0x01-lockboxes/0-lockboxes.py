@@ -1,22 +1,26 @@
 #!/usr/bin/python3
+"""Module to determine if all boxes can be unlocked."""
+
 
 def canUnlockAll(boxes):
-    # Initialize a list to track which boxes have been unlocked
+    """
+    Determine if all boxes can be opened.
+
+    Args:
+        boxes (list of lists): Each box contains a list of keys.
+
+    Returns:
+        bool: True if all boxes can be opened, else False.
+    """
     unlocked = [False] * len(boxes)
-    unlocked[0] = True  # The first box is always unlocked
-    
-    # List to track boxes that we still need to check
+    unlocked[0] = True
     stack = [0]
-    
-    # Iterate through the boxes we can open (using the stack to simulate DFS)
+
     while stack:
-        current_box = stack.pop()
-        
-        # For each key in the current box, if it hasn't been unlocked, unlock it
-        for key in boxes[current_box]:
+        current = stack.pop()
+        for key in boxes[current]:
             if key < len(boxes) and not unlocked[key]:
                 unlocked[key] = True
                 stack.append(key)
-    
-    # Check if all boxes have been unlocked
+
     return all(unlocked)
