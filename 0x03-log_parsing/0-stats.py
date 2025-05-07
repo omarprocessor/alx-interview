@@ -10,10 +10,12 @@ status_codes = {}
 valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
 line_count = 0
 
+
 def print_stats():
     print("File size: {}".format(total_size))
     for code in sorted(status_codes.keys()):
         print("{}: {}".format(code, status_codes[code]))
+
 
 try:
     for line in sys.stdin:
