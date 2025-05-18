@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+This module contains a
+method that determines if a given data set represents a valid UTF-8 encoding.
+"""
+
 
 def validUTF8(data):
     """
