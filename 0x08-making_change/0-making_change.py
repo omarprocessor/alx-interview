@@ -36,7 +36,8 @@ def makeChange(coins, total):
             if dp[i - coin] == float('inf'):
                 continue
             # Update dp[i] only if we can make a better solution
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+            if dp[i] == float('inf') or dp[i - coin] + 1 < dp[i]:
+                dp[i] = dp[i - coin] + 1
 
     # If dp[total] is still infinity, it means we couldn't make the change
     return dp[total] if dp[total] != float('inf') else -1
