@@ -20,21 +20,23 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    # Sort coins in descending order for optimization
+    coins.sort(reverse=True)
+
     # Initialize dp array where dp[i] represents minimum coins needed
     # for amount i
     dp = [float('inf')] * (total + 1)
     dp[0] = 0  # Base case: 0 coins needed to make 0 amount
 
-    # Sort coins to optimize the solution
-    coins.sort()
-
-    # Fill the dp array
-    for i in range(1, total + 1):
-        for coin in coins:
-            if coin > i:
-                break
-            if dp[i - coin] != float('inf'):
-                dp[i] = min(dp[i], dp[i - coin] + 1)
+    # Process each coin
+    for coin in coins:
+        # Update dp array starting from the coin value
+        for i in range(coin, total + 1):
+            # Skip if current amount can't be made with this coin
+            if dp[i - coin] == float('inf'):
+                continue
+            # Update dp[i] only if we can make a better solution
+            dp[i] = min(dp[i], dp[i - coin] + 1)
 
     # If dp[total] is still infinity, it means we couldn't make the change
     return dp[total] if dp[total] != float('inf') else -1
